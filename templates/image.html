@@ -1,0 +1,70 @@
+{% extends 'main.html' %}
+{% block title %}
+ Eden - Your Image
+{% endblock title %}
+
+{% block content %}
+<div class="container-fluid my-3">
+  <div><a class="fs-3" href="{{ url_for('style.show_style') }}"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+  </svg></a></div>
+
+<form>
+  {% if image_b64 %}
+    <div class="code-picture mx-auto my-3" style="height: 20rem;width:90%;">
+      <img class="" style="height:100%;width:100%;"
+        src="data:image/png;base64,{{ image_b64 | safe }}"
+        alt="Code Image"
+      />
+    </div>
+    <div class="text-center my-2"> 
+      <a
+      class="btn btn-outline-dark"
+        href="data:image/png;base64,{{ image_b64 | safe }}"
+        download="Your_CodeImage.png"
+      >
+        Download Your Code Image &nbsp; <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+          <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+          <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+        </svg>
+      </a>
+    </div>
+   
+  {% endif %}
+  <div class="controls text-center my-3">
+    <button class="btn btn-link" formmethod="get" formaction="{{ url_for('style.index') }}">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+        <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+      </svg>Back to Start
+    </button>
+<div>
+
+</div>
+<button id="share-button">hehee</button>
+  </div>
+</form>
+</div>
+<script>
+
+  const shareButton = document.getElementById('share-button');
+
+shareButton.addEventListener('click', async () => {
+  try {
+    // Replace 'file-url' with the actual URL of the file you want to share
+    const fileURL = 'https://example.com/path-to-your-file.pdf';
+
+    await navigator.share({
+      title: 'Share File',
+      text: 'Check out this file!',
+      url: fileURL,
+    });
+
+    console.log('File shared successfully');
+  } catch (error) {
+    console.error('Error sharing file:', error);
+  }
+});
+
+</script>
+{% endblock content %}
